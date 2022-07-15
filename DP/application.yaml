@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/search_engine
+    initialization-mode: ALWAYS
+    username: root
+    password: password
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 10
+    hibernate:
+      #      ddl-auto: none
+      ddl-auto: create
+sites:
+  list:
+    - url: http://www.playback.ru
+      name: PlayBack
+    - url: https://volochek.life
+      name: Вышний Волочёк
+    - url: https://ipfran.ru
+      name: ИПФ РАН
+    - url: https://et-cetera.ru/mobile
+      name: МОСКОВСКИЙ ТЕАТР «ET CETERA»
+    - url: https://dombulgakova.ru
+      name: Dom Bulgakova
+    - url: https://www.lenta.ru
+      name: Лента.ру
+    - url: https://www.skillbox.ru
+      name: Skillbox
+
+server:
+  port: 8081
+  servlet:
+    contextPath: /
