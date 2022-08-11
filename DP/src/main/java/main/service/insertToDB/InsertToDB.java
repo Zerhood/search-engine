@@ -3,10 +3,6 @@ package main.service.insertToDB;
 import main.entity.*;
 import main.repository.*;
 import main.service.morphology.LuceneMorphology;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,7 +141,7 @@ public class InsertToDB {
     }
 
     private void addToIndex(Page page, Lemma lemma, float rank) {
-        IndexT indexT = new IndexT(page, lemma, rank);
-        indexTRepository.save(indexT);
+        Index index = new Index(page, lemma, rank);
+        indexTRepository.save(index);
     }
 }

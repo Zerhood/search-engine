@@ -103,11 +103,10 @@ public class WordSearch {
         Matcher mat = Pattern.compile(REGEX_LEMMA).matcher(input);
         while (mat.find()) {
             String regex = "(.+)(" + lemma + ")(.+)";
-            String strUp = "<b>";
             outPut.append(mat.group().replaceAll(regex, "$1"))
-                    .append(strUp)
+                    .append("<b>")
                     .append(mat.group().replaceAll(regex, "$2"))
-                    .append(strUp)
+                    .append("</b>")
                     .append(mat.group().replaceAll(regex, "$3"))
                     .append("<br>");
         }

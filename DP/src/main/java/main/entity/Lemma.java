@@ -30,5 +30,5 @@ public class Lemma {
     private Site site;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lemma")
-    private List<IndexT> indexT;
+    private List<Index> index;
 }

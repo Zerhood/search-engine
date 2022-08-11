@@ -1,4 +1,8 @@
 spring:
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    drop-first: true
   datasource:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/search_engine
@@ -8,11 +12,10 @@ spring:
   jpa:
     properties:
       hibernate:
-        jdbc:
-          batch_size: 10
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
     hibernate:
-      #      ddl-auto: none
-      ddl-auto: create
+      ddl-auto: none
+#      ddl-auto: create
 sites:
   list:
     - url: http://www.playback.ru

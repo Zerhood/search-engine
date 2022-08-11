@@ -11,9 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "page", indexes = {
-        @Index(name = "index_path", columnList = "path")
-})
+@Table(name = "page")
 public class Page {
 
     @Id
@@ -32,5 +30,5 @@ public class Page {
     private Site site;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "page")
-    private List<IndexT> indexT;
+    private List<Index> index;
 }

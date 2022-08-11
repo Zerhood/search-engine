@@ -10,8 +10,8 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "indext")
-public class IndexT {
+@Table(name = "\"index\"")
+public class Index {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +26,12 @@ public class IndexT {
     @JoinColumn(name = "lemma_id", referencedColumnName = "id")
     private Lemma lemma;
 
-    @Column(name = "rankT", nullable = false)
-    private float rankT;
+    @Column(name = "\"rank\"", nullable = false)
+    private float rank;
 
-    public IndexT(Page page, Lemma lemma, float rankT) {
+    public Index(Page page, Lemma lemma, float rank) {
         this.page = page;
         this.lemma = lemma;
-        this.rankT = rankT;
+        this.rank = rank;
     }
 }

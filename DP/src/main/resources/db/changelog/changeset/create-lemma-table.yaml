@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_table_lemma
+      author: Zerhood-Saitam'ы друг
+      changes:
+        - createTable:
+            tableName: lemma
+            columns:
+              - column:
+                  name: id
+                  type: INTEGER
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: lemma_pkey
+                    nullable: false
+              - column:
+                  name: lemma
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: frequency
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+              - column:
+                  name: site_id
+                  type: INTEGER
+  - changeSet:
+      id: create_foreign_key_lemma_to_site
+      author: Zerhood (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: site_id
+            baseTableName: lemma
+            constraintName: fkfbq251d28jauqlxirb1k2cjag
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: site
+            validate: true

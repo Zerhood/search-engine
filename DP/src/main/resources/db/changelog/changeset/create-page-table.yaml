@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_table_page
+      author: Zerhood-Saitam'ы друг
+      changes:
+        - createTable:
+            tableName: page
+            columns:
+              - column:
+                  name: id
+                  type: INTEGER
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: page_pkey
+                    nullable: false
+              - column:
+                  name: path
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: code
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+              - column:
+                  name: content
+                  type: MEDIUMTEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: site_id
+                  type: INTEGER
+  - changeSet:
+      id: add_foreign_key_page_to_site
+      author: Zerhood (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: site_id
+            baseTableName: page
+            constraintName: fkj2jx0gqa4h7wg8ls0k3y221h2
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: site
+            validate: true

@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_table_field
+      author: Zerhood-Saitam'ы друг
+      changes:
+        - createTable:
+            tableName: field
+            columns:
+              - column:
+                  name: id
+                  type: INTEGER
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: field_pkey
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: selector
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: weight
+                  type: FLOAT4
+                  constraints:
+                    nullable: false
