@@ -91,13 +91,7 @@ public class MyStatisticImpl implements MyStatistic {
     }
 
     private boolean isSitesIndexing() {
-        boolean is = true;
-        for (Site s : getSite()) {
-            if (!s.getStatus().equals(StatusType.INDEXED)) {
-                is = false;
-                break;
-            }
-        }
-        return is;
+        return getSite().stream()
+                .anyMatch(s -> s.getStatus().equals(StatusType.INDEXING));
     }
 }

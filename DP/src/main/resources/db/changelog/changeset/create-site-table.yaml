@@ -16,12 +16,12 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: status
-                  type: VARCHAR(255)
+                  type: VARCHAR(50)
                   constraints:
                     nullable: false
               - column:
                   name: status_time
-                  type: TIMESTAMP #WITHOUT TIME ZONE
+                  type: TIMESTAMP WITHOUT TIME ZONE
                   constraints:
                     nullable: false
               - column:

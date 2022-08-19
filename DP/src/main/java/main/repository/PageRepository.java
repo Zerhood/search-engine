@@ -30,7 +30,7 @@ public interface PageRepository extends JpaRepository<Page, Integer> {
             "JOIN i.page AS p " +
             "JOIN i.lemma AS l " +
             "WHERE i.page.id IN (?2) AND i.lemma.id IN (?3) " +
-            "GROUP BY i.page.id")
+            "GROUP BY i.page.id, p.path, p.content")
     List<Object[]> getPathAndContentAndRelevance(float maxRank,
                                                  Collection<Integer> pageId,
                                                  Collection<Integer> lemmaId);

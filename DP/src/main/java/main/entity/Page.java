@@ -18,11 +18,14 @@ public class Page {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "path", nullable = false)
+
+    @Column(name = "path", columnDefinition = "TEXT", nullable = false)
     private String path;
+
     @Column(name = "code", nullable = false)
     private int code;
-    @Column(name = "content", nullable = false, length = 65555)
+
+    @Column(name = "content", columnDefinition = "TEXT", nullable = false)
     private String content;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})

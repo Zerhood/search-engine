@@ -53,48 +53,67 @@ public class WordSearch {
     }
 
     public List<Data> printingListOfPages(String site) {
-        List<Integer> pageId = new ArrayList<>();
-        List<Integer> lemmaId = new ArrayList<>();
+        if (listPageByLemmas.size() != 0) {
+            List<Integer> pageId = new ArrayList<>();
+            List<Integer> lemmaId = new ArrayList<>();
 
-        for (Page p : listPageByLemmas) {
-            pageId.add(p.getId());
-        }
-        for (Lemma l : inputStringToLemma) {
-            lemmaId.add(l.getId());
-        }
-
-        List<Float> sumRank =
-                pageRepository.getSumRank(pageId, lemmaId);
-        Float maxRank = Collections.max(sumRank);
-        List<Object[]> pathAndContentAndRelevance =
-                pageRepository.getPathAndContentAndRelevance(maxRank, pageId, lemmaId);
-
-        List<Data> list = new ArrayList<>();
-        for (Object[] o : pathAndContentAndRelevance) {
-            String path = (String) o[0];
-            String content = (String) o[1];
-            double relevance = (double) o[2];
-
-            StringBuilder builder = new StringBuilder();
+            for (Page p : listPageByLemmas) {
+                pageId.add(p.getId());
+            }
             for (Lemma l : inputStringToLemma) {
-                builder.append(createSnippet(content, l.getLemma())).append(System.lineSeparator());
+                lemmaId.add(l.getId());
             }
 
-            Site siteByUrl = siteRepository.findSiteByUrl(site);
-            Data dataResult = createDataResult(
-                    siteByUrl.getUrl(),
-                    siteByUrl.getName(),
-                    path,
-                    getTitle(content),
-                    builder.toString(),
-                    relevance
-            );
+            List<Float> sumRank =
+                    pageRepository.getSumRank(pageId, lemmaId);
+            Float maxRank = Collections.max(sumRank);
+            List<Object[]> pathAndContentAndRelevance =
+                    pageRepository.getPathAndContentAndRelevance(maxRank, pageId, lemmaId);
 
-            list.add(dataResult);
+            List<Data> list = new ArrayList<>();
+            for (Object[] o : pathAndContentAndRelevance) {
+                String path = (String) o[0];
+                String content = (String) o[1];
+                double relevance = (double) o[2];
+
+                StringBuilder builder = new StringBuilder();
+                for (Lemma l : inputStringToLemma) {
+                    builder.append(createSnippet(content, l.getLemma())).append(System.lineSeparator());
+                }
+
+                //-----------------------------------------------------------------------
+                if (site != null) {
+                    Site siteByUrl = siteRepository.findSiteByUrl(site);
+                    Data dataResult = createDataResult(siteByUrl.getUrl(),
+                            siteByUrl.getName(),
+                            path,
+                            getTitle(content),
+                            builder.toString(),
+                            relevance);
+
+                    list.add(dataResult);
+                } else {
+                    List<Site> siteList = siteRepository.findAll();
+                    for (Site s : siteList) {
+                        Site siteByUrl = siteRepository.findSiteByUrl(s.getUrl());
+                        Data dataResult = createDataResult(siteByUrl.getUrl(),
+                                siteByUrl.getName(),
+                                path,
+                                getTitle(content),
+                                builder.toString(),
+                                relevance);
+
+                        list.add(dataResult);
+                    }
+                }
+                //-------------------------------------------------------------------------
+            }
+            inputStringToLemma.clear();
+            listPageByLemmas.clear();
+            return list;
+        } else {
+            return null;
         }
-        inputStringToLemma.clear();
-        listPageByLemmas.clear();
-        return list;
     }
 
     private String createSnippet(String input, String lemma) {

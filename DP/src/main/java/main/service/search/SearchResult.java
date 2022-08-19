@@ -4,6 +4,7 @@ import main.dto.search.Data;
 import main.dto.search.SearchDTO;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -17,8 +18,15 @@ public class SearchResult {
     public SearchDTO getSearchResult(String query, String site, int offSet, int limit) {
         wordSearch.transformInputStrToLemmas(query);
         List<Data> list = wordSearch.printingListOfPages(site);
-        int count = (limit + offSet < list.size()) ? limit : list.size() - offSet;
-        list = list.subList(0, count);
-        return new SearchDTO(true, count, list);
+        if (list != null) {
+            int count = (limit + offSet < list.size()) ? limit : list.size() - offSet;
+            list = list.subList(0, count);
+            return new SearchDTO(true, count, list);
+        } else {
+            list = new ArrayList<>();
+            int count = (limit + offSet < 0) ? limit : -offSet;
+            list = list.subList(0, count);
+            return new SearchDTO(true, count, list);
+        }
     }
 }
